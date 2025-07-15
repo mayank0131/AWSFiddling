@@ -10,12 +10,13 @@ terraform {
     }
   }
   required_version = "~> 1.12.0"
-  # backend "s3" {
-  #   bucket = "lb-80-app"
-  #   key = "terraform.tfstate"
-  #   region = "ap-south-1" # cannot refer variables
-  #   profile = "default" #cannot refer variables
-  # }
+  backend "s3" {
+    bucket       = "lb-80-app"
+    key          = "terraform.tfstate"
+    region       = "ap-south-1" # cannot refer variables
+    profile      = "default"    #cannot refer variables
+    use_lockfile = true
+  }
 }
 
 provider "aws" {
