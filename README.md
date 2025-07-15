@@ -10,4 +10,4 @@ The EC2 instances will be residing in the private subnet and can only be accesse
 
 As of now, I have kept the application hosted on port 80 of the instances. I plan to secure it later once I obtain a Domain and then will use AWS Certificate Manager terminating on ALB.
 
-Technical Details are described in [README](ec2-app-hosting-80\README.md)
+Technical Details are described in [README](ec2-app-hosting-80/README.md)
