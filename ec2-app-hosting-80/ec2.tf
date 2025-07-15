@@ -6,11 +6,6 @@ resource "random_shuffle" "public_subnet" {
   }
 }
 
-resource "random_shuffle" "private_subnet" {
-  input        = aws_subnet.app_server_subnet[*].id
-  result_count = 1
-}
-
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
 }
@@ -44,7 +39,7 @@ resource "aws_instance" "application_ec2" {
   count                  = var.app_instance_count
   ami                    = data.aws_ami.ubuntu_ami.image_id
   instance_type          = "t3.micro"
-  subnet_id              = random_shuffle.private_subnet.result[count.index % length(random_shuffle.private_subnet.result)]
+  subnet_id              = aws_subnet.app_server_subnet[count.index % length(aws_subnet.app_server_subnet)].id
   key_name               = aws_key_pair.key_pair.key_name
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   user_data              = file("install-apache.sh")

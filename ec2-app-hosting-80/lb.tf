@@ -13,6 +13,7 @@ resource "aws_lb_target_group" "app_lb_tg" {
 }
 
 resource "aws_lb_target_group_attachment" "app_lb_attachment" {
+  depends_on       = [aws_instance.application_ec2]
   for_each         = { for key, value in aws_instance.application_ec2 : key => value }
   target_group_arn = aws_lb_target_group.app_lb_tg.arn
   target_id        = each.value.id
