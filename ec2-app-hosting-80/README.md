@@ -24,7 +24,7 @@ Here we will store the state file
 12. Create **Application Load Balancer** with Listener set to port 80. Listener then forwards the requests to Target Group with EC2 instances attached as targets
 
 ### Instances
-1. **Random Shufflers** to randomly select the subnet for booting up instances(one for bastion and one for app servers)
+1. **Random Shuffler** to randomly select the subnet for booting up instance(for bastion)
 2. **tls private key** to generate a private key dynamically
 3. **aws key pair** to set the public key of the above private key in the instances
 4. **ec2 instances** one bastion host and two application servers
