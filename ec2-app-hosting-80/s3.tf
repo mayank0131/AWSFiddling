@@ -2,7 +2,7 @@ data "aws_caller_identity" "account_details" {
 }
 
 resource "aws_s3_bucket" "state_bucket" {
-  bucket = "lb-80-app"
+  bucket = var.bucket_name
   region = var.region
   # lifecycle {
   #   prevent_destroy = true
