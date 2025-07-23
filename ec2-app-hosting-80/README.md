@@ -21,7 +21,9 @@ Here we will store the state file
 9. **Load Balancer Security Group** to Allow connection from internet to load balancer (port 80)
 10. **Bastion Host Security Group** to Allow connection from the instance running the TF to server (By design since I'm running stuff on my VM, we can substitute with some variable IP as well)
 11. **Application Server Security Group** to allow connection from Load Balancer SG on port 80 and Bastion Host SG on port 22
-12. Create **Application Load Balancer** with Listener set to port 80. Listener then forwards the requests to Target Group with EC2 instances attached as targets
+12. Create a **Route53 Hosted Zone** along with DNS records pointing to Load Balancer and having a validation record
+13. Create a **Certificate** via ACM and a Certification Validation Record. 
+12. Create **Application Load Balancer** with Listener set to port 443. Listener then forwards the requests to Target Group with EC2 instances attached as targets (on port 80)
 
 ### Instances
 1. **Random Shuffler** to randomly select the subnet for booting up instance(for bastion)

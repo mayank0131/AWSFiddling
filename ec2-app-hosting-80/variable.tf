@@ -32,3 +32,8 @@ variable "bucket_name" {
   type    = string
   default = "lb-80-app"
 }
+
+variable "domain" {
+  type    = string
+  default = "test.infrawithmayank.com"
+}

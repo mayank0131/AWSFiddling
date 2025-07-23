@@ -22,8 +22,9 @@ resource "aws_lb_target_group_attachment" "app_lb_attachment" {
 
 resource "aws_lb_listener" "app_listener" {
   load_balancer_arn = aws_lb.app_lb.arn
-  port              = 80
-  protocol          = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.test_cert.arn
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_lb_tg.arn

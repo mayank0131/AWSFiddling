@@ -8,7 +8,7 @@ This project has an application installed on EC2 instances. The said application
 
 The EC2 instances will be residing in the private subnet and can only be accessed via Bastion Host. Also, even though the instances are in private subnet, they will be speaking to internet through NAT gateways. 
 
-As of now, I have kept the application hosted on port 80 of the instances. I plan to secure it later once I obtain a Domain and then will use AWS Certificate Manager terminating on ALB.
+The application works with the subdomain [test.infrawithmayank.com](test.infrawithmayank.com). Which then is routed through route 53 and points to an Application Load Balancer. ALB points to port 80 on EC2 instances to which the application listens
 
 Technical Details are described in [README](ec2-app-hosting-80/README.md)
 
