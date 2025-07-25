@@ -1,4 +1,4 @@
-## Thought Process
+## Technical Description
 
 Since we need an EC2 instances behind an ALB, we will first need to lay the ground work
 

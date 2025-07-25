@@ -1,3 +1,5 @@
+## Technical Description
+
 Since first part of the problem involved handling EC2 failures, I divided the setup into two parts 
 
 1. [BaseSetup](#basesetup)

@@ -17,3 +17,9 @@ Technical Details are described in [README](ec2-app-hosting-80/README.md)
 This project has an EC2 instance that has some application(apache) running on it. The application has some custom data that needs to be retained even if the server crashes. Also, we don't want to reconfigure DNS or connections in case the switchover happens. Further, we wanted it to be resistant to AZ failures as well.
 
 Technical Details are described in [README](DR-scenario/README.md)
+
+## NodeJS App Hosting + NGINX + LetsEncrypt
+
+This project deploys a sample NodeJS application to an ubuntu EC2 instance. The application is live on a custom domain **test.infrawithmayank.com** and secured via Let's Encrypt certificate. Nginx is set up as a reverse proxy applying the certificate and PM2 is setup to automatically start the application on server reboot. 
+
+Technical Details are described in [README](nodejs-letencrypt/README.md)
