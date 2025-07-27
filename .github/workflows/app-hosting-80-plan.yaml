@@ -17,7 +17,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: "arn:aws:iam::412432595210:role/AWSFiddling-actions-read-only-role"
+        role-to-assume: ${{ secrets.PR_ACTION_ROLE }}
         aws-region: "ap-south-1"
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
