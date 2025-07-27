@@ -15,21 +15,21 @@ jobs:
     - name: Checkout the repo
       uses: actions/checkout@v4
     - name: Print Subject
-      run: echo "${{ github.actor }} - ${{ github.ref }}"
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.PR_ACTION_ROLE }}
-        aws-region: "ap-south-1"
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: 1.12.0
-    - name: Initialize Terraform
-      run: terraform init
-    - name: Check format
-      run: terraform fmt -check -recursive
-    - name: Validate Terraform
-      run: terraform validate
-    - name: Run Plan
-      run: terraform plan
+      run: echo "${{ github.actor }} - ${{ github.repository }} - ${{ github.ref }}"
+    # - name: Configure AWS Credentials
+    #   uses: aws-actions/configure-aws-credentials@v4
+    #   with:
+    #     role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.PR_ACTION_ROLE }}
+    #     aws-region: "ap-south-1"
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v3
+    #   with:
+    #     terraform_version: 1.12.0
+    # - name: Initialize Terraform
+    #   run: terraform init
+    # - name: Check format
+    #   run: terraform fmt -check -recursive
+    # - name: Validate Terraform
+    #   run: terraform validate
+    # - name: Run Plan
+    #   run: terraform plan
