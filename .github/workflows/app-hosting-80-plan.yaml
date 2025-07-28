@@ -27,6 +27,6 @@ jobs:
         role-to-assume: ${{ secrets.PR_ACTION_ROLE }}
         aws-region: "ap-south-1"
     - name: Perform Terraform operations
-      uses: ./.github/actions/terraform-deployment
+      uses: .github/actions/terraform-deployment
       with:
         flow: plan
