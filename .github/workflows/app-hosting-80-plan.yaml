@@ -27,3 +27,4 @@ jobs:
       with:
         flow: plan
         working_dir: ec2-app-hosting-80
+        rolename: ${{ secrets.readonly_role }}
