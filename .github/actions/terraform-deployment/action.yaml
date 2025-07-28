@@ -41,13 +41,13 @@ runs:
     if: ${{ inputs.flow }} == 'plan'
     run: |
       cd ${{ inputs.working_dir }}
-      terraform plan
+      terraform plan -input=false
     shell: bash
   - name: Run Plan (Push)
     if: ${{ inputs.flow }} == 'push'
     run: |
       cd ${{ inputs.working_dir }}
-      terraform plan -out oidc-plan.tfplan
+      terraform plan -input=false -out oidc-plan.tfplan
     shell: bash
   - name: Run Apply
     if: ${{ inputs.flow }} == 'push'
