@@ -37,8 +37,3 @@ variable "domain" {
   type    = string
   default = "test.infrawithmayank.com"
 }
-
-variable "rolename" {
-  type        = string
-  description = "Rolename to be assumed by pipeline"
-}

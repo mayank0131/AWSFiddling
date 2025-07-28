@@ -1,6 +1,12 @@
 data "aws_caller_identity" "account_details" {
 }
 
+locals {
+  caller_arn = data.aws_caller_identity.account_details.arn
+  is_role = can(regex("arn:aws:iam::\\d+:role/([^/]+)", local.caller_arn))
+  effective_arn = local.is_role ? regex("^(.*)/[^/]+$", local.caller_arn)[0] : local.caller_arn
+}
+
 resource "aws_s3_bucket" "state_bucket" {
   bucket = var.bucket_name
   region = var.region
@@ -35,7 +41,7 @@ resource "aws_s3_bucket_policy" "state_bucket_policy" {
         Sid    = "AllowTerraformAccess"
         Effect = "Allow"
         Principal = {
-          "AWS" = ["arn:aws:iam::${data.aws_caller_identity.account_details.account_id}:role/${var.rolename}"] # We can add a role here as well
+          "AWS" = [local.effective_arn]
         }
         Action = [
           "s3:GetObject",

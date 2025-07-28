@@ -8,9 +8,6 @@ inputs:
   working_dir:
     description: 'Working Directory for terraform commands'
     required: true
-  rolename:
-    description: 'Role for s3 bucket access'
-    required: true
 runs:
   using: composite
   steps:
@@ -32,10 +29,6 @@ runs:
     run: |
       cd ${{ inputs.working_dir }}
       terraform validate
-    shell: bash
-  - name: Export Environment Variables
-    run: |
-      echo "TF_VAR_rolename=${{ inputs.rolename }}" >> GITHUB_ENV
     shell: bash
   - name: Run Plan (PR)
     if: ${{ inputs.flow }} == 'plan'
