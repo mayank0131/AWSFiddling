@@ -2,8 +2,8 @@ data "aws_caller_identity" "account_details" {
 }
 
 locals {
-  caller_arn = data.aws_caller_identity.account_details.arn
-  is_role = can(regex("arn:aws:iam::\\d+:role/([^/]+)", local.caller_arn))
+  caller_arn    = data.aws_caller_identity.account_details.arn
+  is_role       = can(regex("arn:aws:iam::\\d+:role/([^/]+)", local.caller_arn))
   effective_arn = local.is_role ? regex("^(.*)/[^/]+$", local.caller_arn)[0] : local.caller_arn
 }
 
