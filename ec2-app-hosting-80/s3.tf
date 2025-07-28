@@ -35,7 +35,7 @@ resource "aws_s3_bucket_policy" "state_bucket_policy" {
         Sid    = "AllowTerraformAccess"
         Effect = "Allow"
         Principal = {
-          "AWS" = ["arn:aws:iam::${ data.aws_caller_identity.account_details.account_id}:role/${var.rolename}"] # We can add a role here as well
+          "AWS" = ["arn:aws:iam::${data.aws_caller_identity.account_details.account_id}:role/${var.rolename}"] # We can add a role here as well
         }
         Action = [
           "s3:GetObject",

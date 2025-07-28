@@ -39,6 +39,6 @@ variable "domain" {
 }
 
 variable "rolename" {
-  type = string
+  type        = string
   description = "Rolename to be assumed by pipeline"
 }
