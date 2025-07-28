@@ -27,8 +27,8 @@ runs:
     shell: bash
   - name: Validate Terraform
     run: |
-    cd ${{ inputs.working_dir }}
-    terraform validate
+      cd ${{ inputs.working_dir }}
+      terraform validate
     shell: bash
   - name: Run Plan (PR)
     if: ${{ inputs.flow }} == 'plan'
