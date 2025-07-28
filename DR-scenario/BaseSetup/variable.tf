@@ -9,6 +9,6 @@ variable "az_failure" {
 }
 
 variable "create_volume_from_snapshot" {
-  type = bool
+  type    = bool
   default = false
 }

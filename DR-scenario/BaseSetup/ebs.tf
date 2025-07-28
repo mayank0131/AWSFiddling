@@ -1,5 +1,5 @@
 data "aws_ebs_snapshot" "latest" {
-  count = var.create_volume_from_snapshot ? 1 : 0
+  count       = var.create_volume_from_snapshot ? 1 : 0
   most_recent = true
   owners      = ["self"]
 
@@ -14,7 +14,7 @@ resource "aws_ebs_volume" "from_snapshot" {
   snapshot_id       = data.aws_ebs_snapshot.latest[0].id
   availability_zone = local.selected_az
   tags = {
-    "Name" = "volume-1",
+    "Name"     = "volume-1",
     "Snapshot" = "true"
   }
 }
@@ -24,7 +24,7 @@ resource "aws_ebs_volume" "base_volume" {
   availability_zone = local.selected_az
   size              = 40
   tags = {
-    "Name" = "volume-1",
+    "Name"     = "volume-1",
     "Snapshot" = "true"
   }
 }
