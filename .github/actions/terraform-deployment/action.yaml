@@ -5,6 +5,9 @@ inputs:
     description: 'This identifies whether it is a PR flow or Push flow'
     required: true
     default: plan
+  working_dir:
+    description: 'Working Directory for terraform commands'
+    required: true
 runs:
   using: composite
   steps:
@@ -14,24 +17,24 @@ runs:
       terraform_version: "~1.12.0"
   - name: Initialize Terraform
     run: terraform init
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
   - name: Check format
     run: terraform fmt -check -recursive
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
   - name: Validate Terraform
     run: terraform validate
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
   - name: Run Plan (PR)
     if: ${{ inputs.flow }} == 'plan'
     run: terraform plan
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
   - name: Run Plan (Push)
     if: ${{ inputs.flow }} == 'push'
     run: terraform plan -out oidc-plan.tfplan
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
   - name: Run Apply
     if: ${{ inputs.flow }} == 'push'
     run: terraform apply -input=false oidc-plan.tfplan
-    shell: bash
+    working-directory: ${{ inputs.working_dir }}
     
     
