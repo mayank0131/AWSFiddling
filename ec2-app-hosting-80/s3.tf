@@ -47,7 +47,8 @@ resource "aws_s3_bucket_policy" "state_bucket_policy" {
           "s3:GetObject",
           "s3:PutObject",
           "s3:DeleteObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:Get*"
         ]
         Resource = [
           "${aws_s3_bucket.state_bucket.arn}",  # For List Bucket

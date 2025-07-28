@@ -31,22 +31,25 @@ runs:
       terraform validate
     shell: bash
   - name: Run Plan (PR)
-    if: ${{ inputs.flow }} == 'plan'
     run: |
-      cd ${{ inputs.working_dir }}
-      terraform plan -input=false
+      if [ "${{ inputs.flow }}" = "push" ]; then
+        cd ${{ inputs.working_dir }}
+        terraform plan -input=false
+      fi
     shell: bash
   - name: Run Plan (Push)
-    if: ${{ inputs.flow }} == 'push'
     run: |
-      cd ${{ inputs.working_dir }}
-      terraform plan -input=false -out oidc-plan.tfplan
+      if [ "${{ inputs.flow }}" = "push" ]; then
+        cd ${{ inputs.working_dir }}
+        terraform plan -input=false -out oidc-plan.tfplan
+      fi
     shell: bash
   - name: Run Apply
-    if: ${{ inputs.flow }} == 'push'
     run: |
-      cd ${{ inputs.working_dir }}
-      terraform apply -input=false oidc-plan.tfplan
+      if [ "${{ inputs.flow }}" = "push" ]; then
+        cd ${{ inputs.working_dir }}
+        terraform apply -input=false oidc-plan.tfplan
+      fi
     shell: bash
     
     
