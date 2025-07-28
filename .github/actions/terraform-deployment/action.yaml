@@ -32,6 +32,7 @@ runs:
     run: |
       cd ${{ inputs.working_dir }}
       terraform validate
+    shell: bash
   - name: Export Environment Variables
     run: |
       echo "TF_VAR_rolename=${{ inputs.rolename }}" >> GITHUB_ENV
