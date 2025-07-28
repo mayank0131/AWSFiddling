@@ -32,7 +32,7 @@ runs:
     shell: bash
   - name: Run Plan (PR)
     run: |
-      if [ "${{ inputs.flow }}" = "push" ]; then
+      if [ "${{ inputs.flow }}" = "plan" ]; then
         cd ${{ inputs.working_dir }}
         terraform plan -input=false
       fi
