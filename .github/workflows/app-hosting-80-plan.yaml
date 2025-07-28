@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
     - main
+    path:
+    - ec2-app-hosting-80/**
+    - .github/workflows/app-hosting-80-plan.yaml
 
 permissions:
   id-token: write
@@ -25,9 +28,13 @@ jobs:
         terraform_version: 1.12.0
     - name: Initialize Terraform
       run: terraform init
+      working_dir: ec2-app-hosting-80
     - name: Check format
       run: terraform fmt -check -recursive
+      working_dir: ec2-app-hosting-80
     - name: Validate Terraform
       run: terraform validate
+      working_dir: ec2-app-hosting-80
     - name: Run Plan
       run: terraform plan
+      working_dir: ec2-app-hosting-80
