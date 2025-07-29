@@ -41,11 +41,11 @@ jobs:
     - name: Validate Terraform
       run: terraform validate
     - name: Run Plan - PR
-      if: ${{ inputs.flow == plan }}
+      if: ${{ inputs.flow == 'plan' }}
       run: terraform plan -input=false
     - name: Run Plan - Push
-      if: ${{ inputs.flow == push }}
+      if: ${{ inputs.flow == 'push' }}
       run: terraform plan -input=false -out oidc-plan.tfplan
     - name: Run Apply
-      if: ${{ inputs.flow == push }}
+      if: ${{ inputs.flow == 'push' }}
       run: terraform apply -input=false oidc-plan.tfplan
