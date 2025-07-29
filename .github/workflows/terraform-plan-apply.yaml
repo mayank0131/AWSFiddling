@@ -5,6 +5,7 @@ on:
       flow:
         description: 'This identifies whether it is a PR flow or Push flow'
         required: true
+        default: plan
         type: string
       working_dir:
         description: 'Working Directory for terraform commands'
@@ -17,7 +18,7 @@ on:
 jobs:
   terraform_operations:
     runs-on: ubuntu-latest
-    default:
+    defaults:
       working_directory: ${ inputs.working_dir }
       flow: ${ inputs.flow }
       shell: bash
