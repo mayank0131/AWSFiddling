@@ -1,0 +1,29 @@
+name: App Hosting 80 Action PR
+on:
+  pull_request:
+    branches:
+    - main
+    path:
+    - ec2-app-hosting-80/**
+    - .github/workflows/app-hosting-80-plan.yaml
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.PR_ACTION_ROLE }}
+        aws-region: "ap-south-1"
+    - name: Perform Terraform operations
+      uses: ./.github/actions/terraform-deployment
+      with:
+        flow: plan
+        working_dir: ec2-app-hosting-80

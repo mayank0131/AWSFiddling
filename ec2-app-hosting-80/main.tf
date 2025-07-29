@@ -14,12 +14,10 @@ terraform {
     bucket       = "lb-80-app"
     key          = "terraform.tfstate"
     region       = "ap-south-1" # cannot refer variables
-    profile      = "default"    #cannot refer variables
     use_lockfile = true
   }
 }
 
 provider "aws" {
-  region  = var.region
-  profile = var.profile
+  region = var.region
 }
