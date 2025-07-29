@@ -1,0 +1,43 @@
+name: App Hosting 80 Action
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - ec2-app-hosting-80/**
+    - .github/workflows/app-hosting-80-plan.yaml
+  push:
+    branches: 
+    - main
+    paths:
+    - ec2-app-hosting-80/**
+    - .github/workflows/app-hosting-80-plan.yaml
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check trigger and set environment variables
+      id: set-role
+      run: |
+        if [ "${{ github.event_name }}" = "push" ]; then
+          echo "assumerole=${{ secrets.PUSH_ACTION_ROLE }}" >> $GITHUB_OUTPUT
+          echo "flow_value=push" >> $GITHUB_OUTPUT
+        else
+          echo "assumerole=${{ secrets.PR_ACTION_ROLE }}" >> $GITHUB_OUTPUT
+          echo "flow_value=push" >> $GITHUB_OUTPUT
+        fi
+    outputs:
+      rolename: ${{ steps.set-role.outputs.assumerole}}
+      flow_value: ${{ steps.set-role.outputs.flow_value}}
+  terraform-plan:
+    needs: set-env
+    uses: ./.github/workflows/terraform-plan-apply.yaml@main
+    with:
+      flow: ${needs.set-env.outputs.flow_value}
+      working_dir: ec2-app-hosting-80
+      role: ${needs.set-env.outputs.rolename}
