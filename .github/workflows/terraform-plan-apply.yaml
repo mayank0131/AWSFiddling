@@ -19,9 +19,9 @@ jobs:
   terraform_operations:
     runs-on: ubuntu-latest
     defaults:
-      working_directory: ${ inputs.working_dir }
-      flow: ${ inputs.flow }
-      shell: bash
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_dir }}
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
