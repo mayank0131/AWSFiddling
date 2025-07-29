@@ -5,7 +5,8 @@ on:
     - main
     paths:
     - ec2-app-hosting-80/**
-    - .github/workflows/app-hosting-80-plan.yaml
+    - .github/workflows/app-hosting-80-pr.yaml
+    - .github/workflows/app-hosting-80-push.yaml
 
 permissions:
   id-token: write

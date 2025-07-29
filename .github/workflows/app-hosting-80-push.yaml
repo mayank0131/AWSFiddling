@@ -1,11 +1,11 @@
 name: App Hosting 80 Push Action
 on:
-  pull_request:
+  push:
     branches:
     - main
     paths:
     - ec2-app-hosting-80/**
-    - .github/workflows/app-hosting-80-plan.yaml
+    - .github/workflows/app-hosting-80-push.yaml
 
 permissions:
   id-token: write
