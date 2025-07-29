@@ -23,6 +23,8 @@ jobs:
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
