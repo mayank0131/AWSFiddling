@@ -27,7 +27,7 @@ jobs:
         if [ "${{ github.event_name }}" = "push" ]; then
           echo "flow_value=push" >> $GITHUB_OUTPUT
         else
-          echo "flow_value=push" >> $GITHUB_OUTPUT
+          echo "flow_value=plan" >> $GITHUB_OUTPUT
         fi
     outputs:
       flow_value: ${{ steps.set-role.outputs.flow_value }}
