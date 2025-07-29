@@ -28,6 +28,8 @@ jobs:
         shell: bash
         working-directory: ${{ inputs.working_dir }}
     steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
     - name: Set Role ARN from Flow
       id: set-role
       run: |
@@ -36,8 +38,6 @@ jobs:
         else
           echo "AWS_ROLE=${{ secrets.PR_ACTION_ROLE }}" >> $GITHUB_ENV
         fi
-    - name: Checkout the repo
-      uses: actions/checkout@v4
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
