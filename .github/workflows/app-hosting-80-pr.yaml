@@ -1,0 +1,21 @@
+name: App Hosting 80 PR Action
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - ec2-app-hosting-80/**
+    - .github/workflows/app-hosting-80-plan.yaml
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform_processing:
+    uses: ./.github/workflows/terraform-plan-apply.yaml
+    with:
+      flow: plan
+      working_dir: ec2-app-hosting-80
+    secrets:
+      ROLE: ${{ secrets.PR_ACTION_ROLE }}
