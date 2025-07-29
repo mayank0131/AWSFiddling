@@ -36,7 +36,7 @@ jobs:
       flow_value: ${{ steps.set-role.outputs.flow_value}}
   terraform-plan:
     needs: set-env
-    uses: ./.github/workflows/terraform-plan-apply.yaml@main
+    uses: ./.github/workflows/terraform-plan-apply.yaml@f269ea4
     with:
       flow: ${needs.set-env.outputs.flow_value}
       working_dir: ec2-app-hosting-80
