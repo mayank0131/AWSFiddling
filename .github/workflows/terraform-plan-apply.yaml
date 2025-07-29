@@ -6,12 +6,15 @@ on:
         description: 'This identifies whether it is a PR flow or Push flow'
         required: true
         default: plan
+        type: string
       working_dir:
         description: 'Working Directory for terraform commands'
         required: true
+        type: string
       role:
         description: Role for the workflow
         required: true
+        type: string
 jobs:
   terraform_operations:
     runs-on: ubuntu-latest
