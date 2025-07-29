@@ -25,14 +25,11 @@ jobs:
       id: set-role
       run: |
         if [ "${{ github.event_name }}" = "push" ]; then
-          echo "assumerole=${{ secrets.PUSH_ACTION_ROLE }}" >> $GITHUB_OUTPUT
           echo "flow_value=push" >> $GITHUB_OUTPUT
         else
-          echo "assumerole=${{ secrets.PR_ACTION_ROLE }}" >> $GITHUB_OUTPUT
           echo "flow_value=push" >> $GITHUB_OUTPUT
         fi
     outputs:
-      rolename: ${{ steps.set-role.outputs.assumerole }}
       flow_value: ${{ steps.set-role.outputs.flow_value }}
   terraform_processing:
     needs: set-env
@@ -41,3 +38,6 @@ jobs:
       flow: ${{ needs.set-env.outputs.flow_value }}
       working_dir: ec2-app-hosting-80
       role: ${{ needs.set-env.outputs.rolename }}
+    secrets:
+      PR_ACTION_ROLE: ${{ secrets.PR_ACTION_ROLE }}
+      PUSH_ACTION_ROLE: ${{ secrets.PUSH_ACTION_ROLE }}

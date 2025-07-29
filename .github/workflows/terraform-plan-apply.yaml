@@ -15,6 +15,11 @@ on:
         description: Role for the workflow
         required: true
         type: string
+    secrets:
+      PR_ACTION_ROLE: 
+        required: true
+      PUSH_ACTION_ROLE: 
+        required: true
 jobs:
   terraform_operations:
     runs-on: ubuntu-latest
@@ -23,12 +28,20 @@ jobs:
         shell: bash
         working-directory: ${{ inputs.working_dir }}
     steps:
+    - name: Set Role ARN from Flow
+      id: set-role
+      run: |
+        if [ "${{ inputs.flow }}" = "push" ]; then
+          echo "AWS_ROLE=${{ secrets.PUSH_ACTION_ROLE }}" >> $GITHUB_ENV
+        else
+          echo "AWS_ROLE=${{ secrets.PR_ACTION_ROLE }}" >> $GITHUB_ENV
+        fi
     - name: Checkout the repo
       uses: actions/checkout@v4
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ inputs.role }}
+        role-to-assume: ${{ env.AWS_ROLE }}
         aws-region: "ap-south-1"
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
