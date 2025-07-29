@@ -37,10 +37,10 @@ on:
             run: terraform fmt -check -recursive
           - name: Validate Terraform
             run: terraform validate
-          - name: Run Plan (PR)
+          - name: Run Plan - PR
             if: "${{ inputs.flow }}" = "plan"
             run: terraform plan -input=false
-          - name: Run Plan (Push)
+          - name: Run Plan - Push
             if: "${{ inputs.flow }}" = "push"
             run: terraform plan -input=false -out oidc-plan.tfplan
           - name: Run Apply
