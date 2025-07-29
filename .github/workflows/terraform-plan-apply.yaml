@@ -12,37 +12,37 @@ on:
       role:
         description: Role for the workflow
         required: true
-    jobs:
-      terraform_operations:
-        runs-on: ubuntu-latest
-        default:
-          working_directory: ${ inputs.working_dir }
-          flow: ${ inputs.flow }
-          shell: bash
-        steps:
-          - name: Checkout the repo
-            uses: actions/checkout@v4
-          - name: Configure AWS Credentials
-            uses: aws-actions/configure-aws-credentials@v4
-            with:
-              role-to-assume: ${{ inputs.role }}
-              aws-region: "ap-south-1"
-          - name: Setup Terraform
-            uses: hashicorp/setup-terraform@v3
-            with:
-              terraform_version: "~1.12.0"
-          - name: Initialize Terraform
-            run: terraform init
-          - name: Check format
-            run: terraform fmt -check -recursive
-          - name: Validate Terraform
-            run: terraform validate
-          - name: Run Plan - PR
-            if: ${{ inputs.flow == plan }}
-            run: terraform plan -input=false
-          - name: Run Plan - Push
-            if: ${{ inputs.flow == push }}
-            run: terraform plan -input=false -out oidc-plan.tfplan
-          - name: Run Apply
-            if: ${{ inputs.flow == push }}
-            run: terraform apply -input=false oidc-plan.tfplan
+jobs:
+  terraform_operations:
+    runs-on: ubuntu-latest
+    default:
+      working_directory: ${ inputs.working_dir }
+      flow: ${ inputs.flow }
+      shell: bash
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ inputs.role }}
+        aws-region: "ap-south-1"
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "~1.12.0"
+    - name: Initialize Terraform
+      run: terraform init
+    - name: Check format
+      run: terraform fmt -check -recursive
+    - name: Validate Terraform
+      run: terraform validate
+    - name: Run Plan - PR
+      if: ${{ inputs.flow == plan }}
+      run: terraform plan -input=false
+    - name: Run Plan - Push
+      if: ${{ inputs.flow == push }}
+      run: terraform plan -input=false -out oidc-plan.tfplan
+    - name: Run Apply
+      if: ${{ inputs.flow == push }}
+      run: terraform apply -input=false oidc-plan.tfplan
