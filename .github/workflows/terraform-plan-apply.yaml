@@ -5,7 +5,6 @@ on:
       flow:
         description: 'This identifies whether it is a PR flow or Push flow'
         required: true
-        default: plan
         type: string
       working_dir:
         description: 'Working Directory for terraform commands'
