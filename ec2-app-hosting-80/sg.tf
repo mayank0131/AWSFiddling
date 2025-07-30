@@ -5,7 +5,7 @@
 
 locals {
   #   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
-  ip_list     = [for ip in split(",", data.external.env_var.result.ip_list) : trim(ip, " ")]
+  ip_list = [for ip in split(",", data.external.env_var.result.ip_list) : trim(ip, " ")]
   cidr_blocks = [
     for ip in local.ip_list : "${ip}/32"
   ]
