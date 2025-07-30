@@ -5,8 +5,10 @@
 
 locals {
   #   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
-  ip_list     = split(",", data.external.env_var.ip_list)
-  cidr_blocks = [for ip in local.ip_list : "${trim(ip)}${contains(ip, "/") ? "" : "/32"}"]
+  ip_list     = [for ip in split(",", data.external.env_var.result.ip_list) : trim(ip, " ")]
+  cidr_blocks = [
+    for ip in local.ip_list : "${ip}/32"
+  ]
 }
 
 resource "aws_security_group" "lb_sg" {
@@ -33,7 +35,7 @@ resource "aws_security_group" "bastion_sg" {
     protocol    = "tcp"
     from_port   = "22"
     to_port     = "22"
-    cidr_blocks = [local.cidr_blocks]
+    cidr_blocks = local.cidr_blocks
   }
   egress {
     protocol    = "-1"
