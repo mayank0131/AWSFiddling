@@ -3,10 +3,10 @@
 #   url = "https://ipv4.icanhazip.com"
 # }
 
- locals {
-#   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
-  ip_list = split(",", data.external.env_var.ip_list)
-  cidr_blocks = [for ip in local.ip_list : "${trim(ip)}${contains(ip, "/") ? "" : "/32"}" ]
+locals {
+  #   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+  ip_list     = split(",", data.external.env_var.ip_list)
+  cidr_blocks = [for ip in local.ip_list : "${trim(ip)}${contains(ip, "/") ? "" : "/32"}"]
 }
 
 resource "aws_security_group" "lb_sg" {
