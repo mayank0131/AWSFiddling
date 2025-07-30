@@ -15,9 +15,9 @@ permissions:
 jobs:
   terraform_processing:
     uses: ./.github/workflows/terraform-plan-apply.yaml
-    with:
-      flow: plan
-      working_dir: ec2-app-hosting-80
-      ips: ${{ var.WHITELISTED_IPS }}
+      with:
+        flow: plan
+        working_dir: ec2-app-hosting-80
+        ips: ${{ vars.WHITELISTED_IPS }}
     secrets:
       ROLE: ${{ secrets.PR_ACTION_ROLE }}
