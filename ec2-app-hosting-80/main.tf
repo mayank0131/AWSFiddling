@@ -21,3 +21,7 @@ terraform {
 provider "aws" {
   region = var.region
 }
+
+data "external" "env_var" {
+  program = ["jq", "-n", "env"]
+}

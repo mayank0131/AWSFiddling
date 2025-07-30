@@ -1,9 +1,12 @@
-data "http" "current_ip" {
-  url = "https://ipv4.icanhazip.com"
-}
+# Commented out logic for getting local ip addresses
+# data "http" "current_ip" {
+#   url = "https://ipv4.icanhazip.com"
+# }
 
-locals {
-  local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+ locals {
+#   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+  ip_list = split(",", data.external.env_var.ip_list)
+  cidr_blocks = [for ip in local.ip_list : "${trim(ip)}${contains(ip, "/") ? "" : "/32"}" ]
 }
 
 resource "aws_security_group" "lb_sg" {
@@ -30,7 +33,7 @@ resource "aws_security_group" "bastion_sg" {
     protocol    = "tcp"
     from_port   = "22"
     to_port     = "22"
-    cidr_blocks = [local.local_ip_cidr]
+    cidr_blocks = [local.cidr_blocks]
   }
   egress {
     protocol    = "-1"

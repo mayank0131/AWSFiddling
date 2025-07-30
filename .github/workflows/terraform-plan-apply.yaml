@@ -10,12 +10,18 @@ on:
         description: 'Working Directory for terraform commands'
         required: true
         type: string
+      ips: 
+        description: 'IPs for whitelisting'
+        required: true
+        type: string
     secrets:
       ROLE: 
         required: true
 jobs:
   terraform_operations:
     runs-on: ubuntu-latest
+    env:
+      ip_list: ${{ inputs.ips }}
     defaults:
       run:
         shell: bash

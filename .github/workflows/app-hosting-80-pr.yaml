@@ -18,5 +18,6 @@ jobs:
     with:
       flow: plan
       working_dir: ec2-app-hosting-80
+      ips: ${{ var.WHITELISTED_IPS }}
     secrets:
       ROLE: ${{ secrets.PR_ACTION_ROLE }}
