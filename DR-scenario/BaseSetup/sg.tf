@@ -1,9 +1,16 @@
-data "http" "current_ip" {
-  url = "https://ipv4.icanhazip.com"
-}
+# data "http" "current_ip" {
+#   url = "https://ipv4.icanhazip.com"
+# }
+
+# locals {
+#   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+# }
 
 locals {
-  local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+  ip_list = [for ip in split(",", data.external.env_var.result.ip_list) : trim(ip, " ")]
+  cidr_blocks = [
+    for ip in local.ip_list : "${ip}/32"
+  ]
 }
 
 resource "aws_security_group" "allow_traffic" {
@@ -13,7 +20,7 @@ resource "aws_security_group" "allow_traffic" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = [local.local_ip_cidr]
+    cidr_blocks = local.cidr_blocks
   }
   ingress {
     from_port   = "80"
