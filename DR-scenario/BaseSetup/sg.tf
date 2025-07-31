@@ -1,10 +1,13 @@
-data "http" "current_ip" {
-  url = "https://ipv4.icanhazip.com"
-}
+# data "http" "current_ip" {
+#   url = "https://ipv4.icanhazip.com"
+# }
+
+# locals {
+#   local_ip_cidr = "${trimspace(data.http.current_ip.response_body)}/32"
+# }
 
 locals {
-  env_ip = "${data.external.env_var.result.ip_list}, ${trimspace(data.http.current_ip.response_body)}"
-  ip_list = [for ip in split(",", local.env_ip) : trim(ip, " ")]
+  ip_list = [for ip in split(",", data.external.env_var.result.ip_list) : trim(ip, " ")]
   cidr_blocks = [
     for ip in local.ip_list : "${ip}/32"
   ]
