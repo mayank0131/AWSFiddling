@@ -1,0 +1,32 @@
+name: DR PR Action
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - DR-scenario/**
+    - .github/workflows/dr-scenario-pr.yaml
+    - .github/workflows/dr-scenario-80-push.yaml
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform_processing_base:
+    uses: ./.github/workflows/terraform-plan-apply.yaml
+    with:
+      flow: plan
+      working_dir: DR-scenario/BaseSetup
+      ips: ${{ vars.WHITELISTED_IPS }}
+    secrets:
+      ROLE: ${{ secrets.PR_ACTION_ROLE }}
+  terraform_processing_ec2_attachment:
+    needs: terraform_processing_base
+    uses: ./.github/workflows/terraform-plan-apply.yaml
+    with:
+      flow: plan
+      working_dir: DR-scenario/EC2Attachment
+      ips: ${{ vars.WHITELISTED_IPS }}
+    secrets:
+      ROLE: ${{ secrets.PR_ACTION_ROLE }}

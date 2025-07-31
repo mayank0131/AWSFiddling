@@ -18,7 +18,10 @@ terraform {
     bucket       = "lb-80-app"
     key          = "dr-attachment.tfstate"
     region       = "ap-south-1" # cannot refer variables
-    profile      = "default"    #cannot refer variables
     use_lockfile = true
   }
+}
+
+data "external" "env_var" {
+  program = ["jq", "-n", "env"]
 }
