@@ -21,7 +21,3 @@ terraform {
     use_lockfile = true
   }
 }
-
-data "external" "env_var" {
-  program = ["jq", "-n", "env"]
-}

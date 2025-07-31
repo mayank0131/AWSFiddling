@@ -20,7 +20,7 @@ jobs:
       working_dir: DR-scenario/BaseSetup
       ips: ${{ vars.WHITELISTED_IPS }}
     secrets:
-      ROLE: ${{ secrets.PR_ACTION_ROLE }}
+      ROLE: ${{ secrets.PUSH_ACTION_ROLE }}
   terraform_processing_ec2_attachment:
     needs: terraform_processing_base
     uses: ./.github/workflows/terraform-plan-apply.yaml
