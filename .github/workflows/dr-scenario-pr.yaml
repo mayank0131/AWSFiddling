@@ -22,6 +22,7 @@ jobs:
     secrets:
       ROLE: ${{ secrets.PR_ACTION_ROLE }}
   terraform_processing_ec2_attachment:
+    needs: terraform_processing_base
     uses: ./.github/workflows/terraform-plan-apply.yaml
     with:
       flow: plan
