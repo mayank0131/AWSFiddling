@@ -19,5 +19,5 @@ jobs:
       working_dir: ec2-app-hosting-80
       ips: ${{ vars.WHITELISTED_IPS }} 
     secrets:
-      ROLE: ${{ secrets.PR_ACTION_ROLE }} 
+      ROLE: ${{ secrets.PUSH_ACTION_ROLE }} 
   
