@@ -6,7 +6,6 @@ on:
     paths:
     - 'DR-scenario/**'
     - '.github/workflows/dr-scenario-pr.yaml'
-    - '.github/workflows/dr-scenario-80-push.yaml'
     - '!**/*.md'
 
 permissions:
