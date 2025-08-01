@@ -7,8 +7,7 @@ on:
     - DR-scenario/**
     - .github/workflows/dr-scenario-pr.yaml
     - .github/workflows/dr-scenario-80-push.yaml
-    paths-ignore:
-    - DR-scenario/README.md
+    - !DR-scenario/README.md
 
 permissions:
   id-token: write

@@ -7,8 +7,7 @@ on:
     - ec2-app-hosting-80/**
     - .github/workflows/app-hosting-80-pr.yaml
     - .github/workflows/app-hosting-80-push.yaml
-    paths-ignore:
-    - ec2-app-hosting-80/README.md
+    - !ec2-app-hosting-80/README.md
 
 permissions:
   id-token: write
