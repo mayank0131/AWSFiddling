@@ -53,3 +53,5 @@ This section would be responsible to bind aws instance to the resources created 
 6. A Null resource that will mount the EBS volume and make it persistent across reboots along with placing the application homepage. 
 
 7. A Null resource that will remove the security group rule added in Step3 once the null EBS volume setup is done.
+
+**Note:** Don't be bothered about the PR failure on first run since second part expects first one to be present. It won't fail in push.
