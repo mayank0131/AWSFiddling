@@ -26,7 +26,7 @@ resource "null_resource" "cleanup_sg_rule" {
       echo "Revoking temp rule for ${local.local_ip_cidr}"
       aws ec2 revoke-security-group-ingress \
         --region ap-south-1 \
-        --group-id ${data.aws_security_group.allow-sg} \
+        --group-id ${data.aws_security_group.allow-sg.id} \
         --protocol tcp \
         --port 22 \
         --cidr ${local.local_ip_cidr}
