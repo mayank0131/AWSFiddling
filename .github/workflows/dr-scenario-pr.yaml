@@ -4,9 +4,9 @@ on:
     branches:
     - main
     paths:
-    - DR-scenario/**
-    - .github/workflows/dr-scenario-pr.yaml
-    - .github/workflows/dr-scenario-80-push.yaml
+    - 'DR-scenario/**'
+    - '.github/workflows/dr-scenario-pr.yaml'
+    - '!**/*.md'
 
 permissions:
   id-token: write
