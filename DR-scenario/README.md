@@ -14,7 +14,7 @@ This section involves creation of all the base resources including
 
 1. VPC and Subnet: Where subnet's AZ is decided on the basis of the variable *az_failure*.
 
-2. Security Group: To allow application access (Port80) from internet and SSH access (Port22) from the VM running this code(since I'm running this from my VM).
+2. Security Group: To allow application access (Port80) from internet and SSH access (Port22) from comma separated IP list provided in GitHub Variables. 
 
 3. RouteTable: To associate with the Subnet and provide it internet access.
 
@@ -44,8 +44,12 @@ This section would be responsible to bind aws instance to the resources created 
 
 2. Creating a TLS key along with an aws-key pair to enable login to EC2 instance(It hasn't been moved into base since I needed the key for my null resource and data doesn't pull the actual pem value).
 
-3. Creating an EC2 instance utilizing the above data elements and key pair. ENI is attached as primary to the instance so as to get it unrestricted access to Elastic IP/internet. Also, we will install apache on it
+3. A Security Group Rule that will enable SSH connection from current ip (AgentIP) to EC2 instance and attach it to existing Security Group.
 
-4. Attaching a volume to the instance.
+4. Creating an EC2 instance utilizing the above data elements and key pair. ENI is attached as primary to the instance so as to get it unrestricted access to Elastic IP/internet. Also, we will install apache on it
 
-5. A Null resource that will mount the EBS volume and make it persistent across reboots along with placing the application homepage. 
+5. Attaching a volume to the instance.
+
+6. A Null resource that will mount the EBS volume and make it persistent across reboots along with placing the application homepage. 
+
+7. A Null resource that will remove the security group rule added in Step3 once the null EBS volume setup is done.

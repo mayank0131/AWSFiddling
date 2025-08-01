@@ -19,7 +19,7 @@ Here we will store the state file
 7. Create **NAT Gateways** (one for each AZ) and attach them to each elastic IP
 8. Create **Route Table** to connect Private subnets to the NAT Gateway of respective AZs. 
 9. **Load Balancer Security Group** to Allow connection from internet to load balancer (port 80)
-10. **Bastion Host Security Group** to Allow connection from the instance running the TF to server (By design since I'm running stuff on my VM, we can substitute with some variable IP as well)
+10. **Bastion Host Security Group** to Allow connection from the comma separated IP list given in GitHub Variables.
 11. **Application Server Security Group** to allow connection from Load Balancer SG on port 80 and Bastion Host SG on port 22
 12. Create a **Route53 Hosted Zone** along with DNS records pointing to Load Balancer and having a validation record
 13. Create a **Certificate** via ACM and a Certification Validation Record. 
@@ -30,3 +30,5 @@ Here we will store the state file
 2. **tls private key** to generate a private key dynamically
 3. **aws key pair** to set the public key of the above private key in the instances
 4. **ec2 instances** one bastion host and two application servers
+
+**NOTE:** Since we are using a custom domain with namecheap, we have to include a manual step of updating Route53 NameServers for the test subdomain.
