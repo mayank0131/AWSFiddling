@@ -14,10 +14,6 @@ data "aws_subnet" "instance_subnet" {
   }
 }
 
-data "aws_security_group" "allow-sg" {
-  name = "AllowTraffic"
-}
-
 data "aws_ebs_volume" "volume" {
   most_recent = true
   filter {
@@ -80,7 +76,7 @@ resource "aws_network_interface_sg_attachment" "dr_sg" {
 }
 
 resource "null_resource" "ebs_volume_setup" {
-  depends_on = [aws_volume_attachment.dr_volume]
+  depends_on = [aws_volume_attachment.dr_volume, aws_security_group_rule.add_current_ip]
 
   connection {
     type        = "ssh"
