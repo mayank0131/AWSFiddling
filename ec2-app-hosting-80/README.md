@@ -31,4 +31,4 @@ Here we will store the state file
 3. **aws key pair** to set the public key of the above private key in the instances
 4. **ec2 instances** one bastion host and two application servers
 
-**NOTE:** Since we are using a custom domain with namecheap, we have to include a manual step of updating Route53 NameServers for the test subdomain.
+**NOTE:** Since I am using a custom domain with namecheap,  there has to be a manual step of updating Route53 NameServers for the *test* subdomain.
